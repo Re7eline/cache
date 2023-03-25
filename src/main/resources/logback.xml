@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <property name="LOG_FOLDER" value="D:/Hillel/Projects/JavaProHW2023/HomeWork25_SpringBootRestAPI/logs"/>
+
+    <appender name="life_cycle_log"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FOLDER}/life_cycle/life_cycle.log</file>
+
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FOLDER}/life_cycle/archive/result-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- or whenever the file size reaches 10MB -->
+                <maxFileSize>1MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- keep 1 days' worth of history -->
+            <maxHistory>1</maxHistory>
+            <totalSizeCap>100MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--    <logger name="logger" level="INFO">-->
+    <!--        <appender-ref ref="result_log"/>-->
+    <!--    </logger>-->
+
+    <logger name="stdout" level="INFO">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="life_cycle_log"/>
+    </logger>
+
+</configuration>
