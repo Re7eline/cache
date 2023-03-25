@@ -1,0 +1,1 @@
+For opening in Browser use link: http://localhost:8080/swagger-ui.html#/
